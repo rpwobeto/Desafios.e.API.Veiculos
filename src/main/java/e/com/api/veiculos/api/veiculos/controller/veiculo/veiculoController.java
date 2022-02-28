@@ -7,14 +7,7 @@ import e.com.api.veiculos.api.veiculos.repository.VeiculosRepository;
 import e.com.api.veiculos.api.veiculos.service.VeiculosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController // Controlador Rest
@@ -80,6 +73,12 @@ public class veiculoController {
 
     @PutMapping(value = "/{id}") // Atualiza por Id
     public ResponseEntity<VeiculoDomain> update(@PathVariable Long id, @RequestBody VeiculoDomain obj) {
+        obj = veiculosService.update(id, obj);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @PatchMapping(value = "/{id}") // Atualiza por Id
+    public ResponseEntity<VeiculoDomain> patch(@PathVariable Long id, @RequestBody VeiculoDomain obj) {
         obj = veiculosService.update(id, obj);
         return ResponseEntity.ok().body(obj);
     }
